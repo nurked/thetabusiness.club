@@ -31,7 +31,7 @@ run-uvicorn:  ## Runs uvicorn (ASGI) server in managed mode
 	pipenv run uvicorn --fd 0 --lifespan off club.asgi:application
 
 docker-run-dev:  ## Runs dev server in docker
-	python3 ./utils/wait_for_postgres.py
+##	python3 ./utils/wait_for_postgres.py
 	python3 manage.py migrate
 	python3 manage.py update_tags
 	python3 manage.py runserver 0.0.0.0:8000
