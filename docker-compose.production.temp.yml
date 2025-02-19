@@ -64,9 +64,7 @@ services:
   redis:
     image: redis:alpine
     container_name: club_redis
-    restart: unless-stopped
-    networks:
-      - club_network
+    restart: unless-stopped    
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 30s
@@ -83,34 +81,32 @@ services:
       - .:/app:delegated
     working_dir: /app/frontend
 
-networks:
-  club_network:
-    driver: bridge
+
 
 # Uncomment these lines if you want to test the Club bot locally
-bot:
-  build:
-    dockerfile: Dockerfile
-    context: .
-  command: make docker-run-bot
-  environment:
-    - MODE=dev
-    - DEBUG=true
-    - PYTHONUNBUFFERED=1
-    - POSTGRES_DB
-    - POSTGRES_USER
-    - POSTGRES_PASSWORD
-    - POSTGRES_HOST
-    - REDIS_DB=0
-    - REDIS_HOST=redis
-  env_file:
-      - club/.env
-  restart: always
-  volumes:
-    - .:/app:delegated
-  depends_on:
-    - club_app
-    - redis
+  bot:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: make docker-run-bot
+    environment:
+      - MODE=dev
+      - DEBUG=true
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_HOST
+      - REDIS_DB=0
+      - REDIS_HOST=redis
+    env_file:
+        - club/.env
+    restart: always
+    volumes:
+      - .:/app:delegated
+    depends_on:
+      - club_app
+      - redis
   
 
 # Uncomment these lines if you want to test the Helpdeskbot locally
