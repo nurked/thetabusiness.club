@@ -105,7 +105,7 @@ def start(update: Update, context: CallbackContext) -> State:
 
     help_desk_user_ban = HelpDeskUser.objects.filter(user=user).first()
     if help_desk_user_ban and help_desk_user_ban.is_banned:
-        send_reply(update, "🙈 Вас забанили от пользования Вастрик Справочной")
+        send_reply(update, "Вас забанили от пользования Справочной")
         return ConversationHandler.END
 
     if not user.is_moderator:
