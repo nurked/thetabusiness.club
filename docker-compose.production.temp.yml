@@ -17,6 +17,8 @@ services:
       - POSTGRES_HOST
       - REDIS_DB=0
       - REDIS_HOST=redis
+      - MEDIA_UPLOAD_URL
+      - MEDIA_UPLOAD_CODE
     env_file:
       - club/.env
     restart: always
@@ -107,6 +109,19 @@ services:
     depends_on:
       - club_app
       - redis
+      
+  cron:
+    <<: *app
+    command: make docker-run-cron
+    container_name: club_cron    
+    ports: []
+
+# helpdeskbot:
+#    <<: *app
+#    command: make docker-run-helpdeskbot
+#    container_name: club_help_desk_bot    
+#    ports:
+#      - "8817:8817"
   
 
 # Uncomment these lines if you want to test the Helpdeskbot locally
